@@ -14,19 +14,19 @@ public interface OpenCensusEntrypoint : Entrypoint {
 
   override suspend fun continueWith(name: String, kernel: Kernel): Resource<OpenCensusSpan?>
 
-  override suspend fun continueWithOrElseRoot(name: String, kernel: Kernel): Resource<OpenCensusSpan>
+  override suspend fun continueWithOrRoot(name: String, kernel: Kernel): Resource<OpenCensusSpan>
 }
 
 internal fun entrypoint(sampler: Sampler): OpenCensusEntrypoint {
   val tracer: Tracer = Tracing.getTracer()
   return object : OpenCensusEntrypoint {
     override suspend fun withRoot(name: String): Resource<OpenCensusSpan> =
-      resource { root(tracer, name, sampler) } releaseCase { oc, exitCase -> oc.close(exitCase) }
+      resource { root(tracer, name, sampler) }.releaseCase { oc, exitCase -> oc.close(exitCase) }
 
     override suspend fun continueWith(name: String, kernel: Kernel): Resource<OpenCensusSpan?> =
-      resource { fromKernel(tracer, name, kernel) } releaseCase { oc, exitCase -> oc?.close(exitCase) }
+      resource { fromKernel(tracer, name, kernel) }.releaseCase { oc, exitCase -> oc?.close(exitCase) }
 
-    override suspend fun continueWithOrElseRoot(name: String, kernel: Kernel): Resource<OpenCensusSpan> =
+    override suspend fun continueWithOrRoot(name: String, kernel: Kernel): Resource<OpenCensusSpan> =
       resource {
         fromKernelOrElseRoot(
           tracer,
@@ -34,6 +34,6 @@ internal fun entrypoint(sampler: Sampler): OpenCensusEntrypoint {
           kernel,
           sampler
         )
-      } releaseCase { oc, exitCase -> oc.close(exitCase) }
+      }.releaseCase { oc, exitCase -> oc.close(exitCase) }
   }
 }

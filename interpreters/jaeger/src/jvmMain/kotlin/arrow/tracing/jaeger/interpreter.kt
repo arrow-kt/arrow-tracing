@@ -12,15 +12,16 @@ import java.net.URI
 
 public fun entrypoint(
   serviceName: String,
-  uiPrefix: URI? = null,
-  config: Configuration.() -> JaegerTracer
+  uriPrefix: URI? = null,
+  config: Configuration.() -> JaegerTracer = { tracer }
 ): Resource<Entrypoint> =
   resource {
     Configuration(serviceName).config().also { registerTracer(it) }
   }.release { it.close() }
-    .map { jaegerEntrypoint(it, uiPrefix) }
+    .map { jaegerEntrypoint(it, uriPrefix) }
 
 
-public fun globalEntrypoint(uiPrefix: URI? = null): Resource<Entrypoint?> =
-  resource { tracerOrNull()?.let { jaegerEntrypoint(it, uiPrefix) } }
-    .release { Unit }
+public fun globalEntrypoint(uriPrefix: URI? = null): Resource<Entrypoint?> =
+  resource { tracerOrNull() }
+    .release { it?.close() }
+    .map { t -> t?.let { jaegerEntrypoint(it, uriPrefix) } }

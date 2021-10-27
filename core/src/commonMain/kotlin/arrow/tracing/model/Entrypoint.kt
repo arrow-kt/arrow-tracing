@@ -25,5 +25,5 @@ public interface Entrypoint {
    * span as with `withRoot` if the kernel does not contain the required headers. In other words, we
    * continue the existing span if we can, otherwise we start a new one.
    */
-  public suspend fun continueWithOrElseRoot(name: String, kernel: Kernel): Resource<Span>
+  public suspend fun continueWithOrRoot(name: String, kernel: Kernel): Resource<Span>
 }
