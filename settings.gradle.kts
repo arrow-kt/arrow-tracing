@@ -16,3 +16,5 @@ include(
   "interpreters:newrelic",
   "interpreters:honeycomb"
   )
+
+include("example")

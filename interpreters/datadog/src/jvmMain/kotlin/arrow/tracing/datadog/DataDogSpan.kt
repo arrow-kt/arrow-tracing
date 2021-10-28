@@ -1,6 +1,9 @@
+@file:Suppress("RedundantSuspendModifier")
+
 package arrow.tracing.datadog
 
 import arrow.core.Nullable
+import arrow.core.computations.nullable
 import arrow.fx.coroutines.ExitCase
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.releaseCase
@@ -68,4 +71,27 @@ internal fun datadogSpan(tracer: Tracer, span: io.opentracing.Span, uriPrefix: U
       ) { uri, trace, span ->
         uri.resolve("/apm/trace/$trace?spanID=$span").path
       }
+  }
+
+internal suspend fun root(tracer: Tracer, name: String): io.opentracing.Span =
+  tracer.buildSpan(name).start()
+
+/**
+ * @throws  UnsupportedFormatException or NullPointerException when headers are incomplete or invalid
+ */
+internal suspend fun fromKernel(tracer: Tracer, name: String, kernel: Kernel): io.opentracing.Span? =
+  nullable {
+    val context = tracer.extract(Format.Builtin.HTTP_HEADERS, TextMapAdapter(kernel.headers)).bind()
+    tracer.buildSpan(name).asChildOf(context).start()
+  }
+
+internal suspend fun fromKernelOrRoot(
+  tracer: Tracer,
+  name: String,
+  kernel: Kernel,
+): io.opentracing.Span =
+  try {
+    fromKernel(tracer, name, kernel) ?: root(tracer, name)
+  } catch (_: NullPointerException) {
+    root(tracer, name)
   }

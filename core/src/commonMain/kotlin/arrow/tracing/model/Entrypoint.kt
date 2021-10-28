@@ -9,7 +9,7 @@ import arrow.fx.coroutines.Resource
 public interface Entrypoint {
 
   /** Resource that creates a new root span in a new trace.*/
-  public suspend fun withRoot(name: String): Resource<Span>
+  public fun withRoot(name: String): Resource<Span>
 
   /**
    * Resource that creates a new span as the child of the span specified by the given kernel,
@@ -18,12 +18,12 @@ public interface Entrypoint {
    * be raised.
    * incomplete or invalid headers in [kernel] cause the resulting Span to be null
    */
-  public suspend fun continueWith(name: String, kernel: Kernel): Resource<Span?>
+  public fun continueWith(name: String, kernel: Kernel): Resource<Span?>
 
   /**
    * Resource that attempts to create a new span as with `continueWith`, but falls back to a new root
    * span as with `withRoot` if the kernel does not contain the required headers. In other words, we
    * continue the existing span if we can, otherwise we start a new one.
    */
-  public suspend fun continueWithOrRoot(name: String, kernel: Kernel): Resource<Span>
+  public fun continueWithOrRoot(name: String, kernel: Kernel): Resource<Span>
 }

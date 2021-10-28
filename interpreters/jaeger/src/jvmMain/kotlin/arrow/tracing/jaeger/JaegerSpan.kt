@@ -1,6 +1,7 @@
 package arrow.tracing.jaeger
 
 import arrow.core.Nullable
+import arrow.core.computations.nullable
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.release
 import arrow.fx.coroutines.resource
@@ -17,6 +18,7 @@ import arrow.tracing.model.TraceValue
 import io.opentracing.Span
 import io.opentracing.Tracer
 import arrow.tracing.model.putErrorFields
+import io.jaegertracing.internal.exceptions.UnsupportedFormatException
 import io.opentracing.propagation.Format
 import io.opentracing.propagation.TextMapAdapter
 import java.net.URI
@@ -67,4 +69,29 @@ internal fun jaegerSpan(
       ) { uri, id ->
         uri.resolve("/trace/$id").path
       }
+  }
+
+internal suspend fun root(tracer: Tracer, name: String): io.opentracing.Span =
+  tracer.buildSpan(name).start()
+
+/**
+ * @throws  UnsupportedFormatException or NullPointerException when headers are incomplete or invalid
+ */
+internal suspend fun fromKernel(tracer: Tracer, name: String, kernel: Kernel): io.opentracing.Span? =
+  nullable {
+    val context = tracer.extract(Format.Builtin.HTTP_HEADERS, TextMapAdapter(kernel.headers)).bind()
+    tracer.buildSpan(name).asChildOf(context).start()
+  }
+
+internal suspend fun fromKernelOrRoot(
+  tracer: Tracer,
+  name: String,
+  kernel: Kernel,
+): io.opentracing.Span =
+  try {
+    fromKernel(tracer, name, kernel) ?: root(tracer, name)
+  } catch (_: NullPointerException) {
+    root(tracer, name)
+  } catch (_: UnsupportedFormatException) {
+    root(tracer, name)
   }

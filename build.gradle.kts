@@ -41,7 +41,7 @@ allprojects {
 }
 
 subprojects {
-  if (!listOf("interpreters").contains(name)) {
+  if (!listOf("interpreters", "example").contains(name)) {
     apply(plugin = "org.jetbrains.kotlin.multiplatform")
 
     kotlin {
