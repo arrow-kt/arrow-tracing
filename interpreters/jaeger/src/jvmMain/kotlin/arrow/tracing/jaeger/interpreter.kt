@@ -3,7 +3,7 @@ package arrow.tracing.jaeger
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.release
 import arrow.fx.coroutines.resource
-import arrow.tracing.model.Entrypoint
+import arrow.tracing.core.Entrypoint
 import arrow.tracing.opentracing.registerTracer
 import arrow.tracing.opentracing.tracerOrNull
 import io.jaegertracing.Configuration

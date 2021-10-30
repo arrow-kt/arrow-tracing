@@ -1,6 +1,6 @@
 rootProject.name = "arrow-tracing"
 
-include("core")
+include("core-entrypoint")
 
 // interpreters
 include(

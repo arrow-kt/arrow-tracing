@@ -1,4 +1,4 @@
-package arrow.tracing.model
+package arrow.tracing.core
 
 /**
  * An opaque hunk of data that can we can hand off to another system (in the form of HTTP headers),

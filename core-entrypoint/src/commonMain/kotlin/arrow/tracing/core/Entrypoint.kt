@@ -1,4 +1,4 @@
-package arrow.tracing.model
+package arrow.tracing.core
 
 import arrow.fx.coroutines.Resource
 

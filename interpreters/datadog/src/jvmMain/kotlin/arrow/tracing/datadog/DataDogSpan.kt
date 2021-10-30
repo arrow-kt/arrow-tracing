@@ -8,18 +8,18 @@ import arrow.fx.coroutines.ExitCase
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.releaseCase
 import arrow.fx.coroutines.resource
-import arrow.tracing.model.BooleanValue
-import arrow.tracing.model.CharValue
-import arrow.tracing.model.DoubleValue
-import arrow.tracing.model.FloatValue
-import arrow.tracing.model.IntValue
-import arrow.tracing.model.Kernel
-import arrow.tracing.model.LongValue
-import arrow.tracing.model.ShortValue
-import arrow.tracing.model.Span
-import arrow.tracing.model.StringValue
-import arrow.tracing.model.TraceValue
-import arrow.tracing.model.putErrorFields
+import arrow.tracing.core.BooleanValue
+import arrow.tracing.core.CharValue
+import arrow.tracing.core.DoubleValue
+import arrow.tracing.core.FloatValue
+import arrow.tracing.core.IntValue
+import arrow.tracing.core.Kernel
+import arrow.tracing.core.LongValue
+import arrow.tracing.core.ShortValue
+import arrow.tracing.core.Span
+import arrow.tracing.core.StringValue
+import arrow.tracing.core.TraceValue
+import arrow.tracing.core.putErrorFields
 import io.opentracing.Tracer
 import io.opentracing.propagation.Format
 import io.opentracing.propagation.TextMapAdapter
@@ -77,7 +77,7 @@ internal suspend fun root(tracer: Tracer, name: String): io.opentracing.Span =
   tracer.buildSpan(name).start()
 
 /**
- * @throws  UnsupportedFormatException or NullPointerException when headers are incomplete or invalid
+ * @throws IllegalArgumentException, NullPointerException when headers are incomplete or invalid
  */
 internal suspend fun fromKernel(tracer: Tracer, name: String, kernel: Kernel): io.opentracing.Span? =
   nullable {
@@ -92,6 +92,8 @@ internal suspend fun fromKernelOrRoot(
 ): io.opentracing.Span =
   try {
     fromKernel(tracer, name, kernel) ?: root(tracer, name)
+  } catch (_: IllegalArgumentException) {
+    root(tracer, name)
   } catch (_: NullPointerException) {
     root(tracer, name)
   }

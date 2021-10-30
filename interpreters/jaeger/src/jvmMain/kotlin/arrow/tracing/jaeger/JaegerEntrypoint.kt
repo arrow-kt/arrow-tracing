@@ -5,10 +5,10 @@ package arrow.tracing.jaeger
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.release
 import arrow.fx.coroutines.resource
-import arrow.tracing.model.Entrypoint
-import arrow.tracing.model.putErrorFields
-import arrow.tracing.model.Kernel
-import arrow.tracing.model.Span
+import arrow.tracing.core.Entrypoint
+import arrow.tracing.core.putErrorFields
+import arrow.tracing.core.Kernel
+import arrow.tracing.core.Span
 import io.opentracing.Tracer
 import java.net.URI
 

@@ -1,4 +1,10 @@
-package arrow.tracing.model
+package example
+
+import arrow.tracing.core.TraceValue
+import arrow.tracing.core.BooleanValue
+import arrow.tracing.core.IntValue
+import arrow.tracing.core.StringValue
+import arrow.tracing.core.toTraceValue
 
 public object Tags {
   /** The software package, framework, library, or module that generated the associated Span. E.g., "grpc", "django", "JDBI". */

@@ -3,8 +3,8 @@ package arrow.tracing.opencensus
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.releaseCase
 import arrow.fx.coroutines.resource
-import arrow.tracing.model.Entrypoint
-import arrow.tracing.model.Kernel
+import arrow.tracing.core.Entrypoint
+import arrow.tracing.core.Kernel
 import io.opencensus.trace.Sampler
 import io.opencensus.trace.Tracer
 import io.opencensus.trace.Tracing

@@ -1,4 +1,4 @@
-const val core: String = ":core"
+const val coreEntrypoint: String = ":core-entrypoint"
 const val opensensus: String = ":interpreters:opensensus"
 const val opentracing: String = ":interpreters:opentracing"
 const val datadog: String = ":interpreters:datadog"
