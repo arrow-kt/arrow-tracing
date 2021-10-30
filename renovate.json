@@ -3,7 +3,7 @@
     "config:base"
   ],
   "lockFileMaintenance": {
-     "enabled": true,
-     "automerge": true
+    "enabled": true,
+    "automerge": true
   }
 }
