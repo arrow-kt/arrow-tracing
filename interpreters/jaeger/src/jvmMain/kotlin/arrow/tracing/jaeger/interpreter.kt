@@ -20,7 +20,6 @@ public fun entrypoint(
   }.release { it.close() }
     .map { jaegerEntrypoint(it, uriPrefix) }
 
-
 public fun globalEntrypoint(uriPrefix: URI? = null): Resource<Entrypoint?> =
   resource { tracerOrNull() }
     .release { it?.close() }

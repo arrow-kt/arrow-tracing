@@ -75,7 +75,7 @@ internal suspend fun root(tracer: Tracer, name: String): io.opentracing.Span =
   tracer.buildSpan(name).start()
 
 /**
- * @throws  UnsupportedFormatException or NullPointerException when headers are incomplete or invalid
+ * @throws UnsupportedFormatException or NullPointerException when headers are incomplete or invalid
  */
 internal suspend fun fromKernel(tracer: Tracer, name: String, kernel: Kernel): io.opentracing.Span? =
   nullable {

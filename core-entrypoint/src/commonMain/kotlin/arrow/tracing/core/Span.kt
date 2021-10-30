@@ -45,7 +45,7 @@ public interface Span {
 /**
  * Adds error message and stacktrace, if existent, to fields when an error or cancellation is raised/triggered.
  */
-public fun <S: Span?> Resource<S>.putErrorFields(): Resource<S> =
+public fun <S : Span?> Resource<S>.putErrorFields(): Resource<S> =
   flatMap {
     resource { it }
       .releaseCase { s, exit ->

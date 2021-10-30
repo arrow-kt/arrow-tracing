@@ -29,7 +29,6 @@ internal fun datadogEntrypoint(
         .map { child -> child?.let { datadogSpan(tracer, it, uriPrefix) } }
         .putErrorFields()
 
-
     override fun continueWithOrRoot(name: String, kernel: Kernel): Resource<Span> =
       resource {
         fromKernelOrRoot(tracer, name, kernel)

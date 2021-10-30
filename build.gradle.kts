@@ -35,7 +35,7 @@ allprojects {
 
   ktlint {
     filter {
-      exclude("build.gradle.kts")
+      exclude("build.gradle.kts", "settings.gradle.kts")
     }
   }
 }

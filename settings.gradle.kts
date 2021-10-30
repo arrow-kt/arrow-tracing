@@ -15,6 +15,6 @@ include(
   "interpreters:lightstepHttp",
   "interpreters:newrelic",
   "interpreters:honeycomb"
-  )
+)
 
 include("example")

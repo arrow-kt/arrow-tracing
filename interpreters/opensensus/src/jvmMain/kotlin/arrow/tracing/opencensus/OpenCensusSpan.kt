@@ -78,7 +78,6 @@ internal fun opensensusSpan(
       opensensusSpan(tracer, tracer.spanBuilderWithExplicitParent(childName, span).startSpan())
   }
 
-
 internal suspend fun OpenCensusSpan.close(exitCase: ExitCase): Unit {
   when (exitCase) {
     ExitCase.Completed -> span.setStatus(Status.OK)
