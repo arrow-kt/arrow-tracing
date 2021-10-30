@@ -61,7 +61,7 @@ subprojects {
         val commonMain by getting {
           dependencies {
             implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
-            compileOnly("io.arrow-kt:arrow-fx-coroutines:1.0.1-SNAPSHOT")
+            compileOnly("io.arrow-kt:arrow-fx-coroutines:1.0.1")
           }
         }
 
@@ -76,7 +76,7 @@ subprojects {
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
             implementation("io.kotest:kotest-assertions-core:5.0.0.M3")
             implementation("io.kotest:kotest-property:5.0.0.M3")
-            implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1-SNAPSHOT")
+            implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
           }
         }
 
