@@ -74,7 +74,7 @@ subprojects {
           dependencies {
             implementation("io.kotest:kotest-framework-engine:5.0.0.M3")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
-            implementation("io.kotest:kotest-assertions-core:5.0.0.M3")
+            implementation("io.kotest:kotest-assertions-core:5.0.0.675-SNAPSHOT")
             implementation("io.kotest:kotest-property:5.0.0.M3")
             implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
           }
