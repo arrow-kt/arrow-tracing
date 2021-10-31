@@ -21,7 +21,7 @@ internal fun jaegerEntrypoint(tracer: Tracer, uriPrefix: URI?): Entrypoint =
         .map { jaegerSpan(tracer, it, uriPrefix) }
         .putErrorFields()
 
-    override fun continueWith(name: String, kernel: Kernel): Resource<Span?> =
+    override fun continueWithChild(name: String, kernel: Kernel): Resource<Span?> =
       resource {
         fromKernel(tracer, name, kernel)
       }.release { it?.finish() }
@@ -29,7 +29,7 @@ internal fun jaegerEntrypoint(tracer: Tracer, uriPrefix: URI?): Entrypoint =
           span?.let { jaegerSpan(tracer, it, uriPrefix) }
         }.putErrorFields()
 
-    override fun continueWithOrRoot(name: String, kernel: Kernel): Resource<Span> =
+    override fun continueWithChildOrRoot(name: String, kernel: Kernel): Resource<Span> =
       resource {
         fromKernelOrRoot(tracer, name, kernel)
       }.release { it.finish() }

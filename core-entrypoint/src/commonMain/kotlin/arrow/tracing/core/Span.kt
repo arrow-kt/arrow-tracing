@@ -5,12 +5,12 @@ import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.releaseCase
 import arrow.fx.coroutines.resource
 
-/** A span that can be passed around and used to create child spans. */
+/** A span that can be passed around and can create child spans. */
 public interface Span {
-  /** Put a sequence of fields into this span. */
+  /** puts [fields] into this span. */
   public suspend fun put(fields: List<Pair<String, TraceValue>>): Unit
 
-  /** Put a sequence of fields into this span. */
+  /** puts [fields] into this span. */
   public suspend fun put(vararg fields: Pair<String, TraceValue>): Unit =
     put(fields.toList())
 
@@ -20,12 +20,12 @@ public interface Span {
    */
   public suspend fun kernel(): Kernel
 
-  /** Resource that yields a child span with the given name. */
-  public suspend fun span(name: String): Resource<Span>
+  /** continues with a child span with the given name. */
+  public suspend fun continueWithChild(name: String): Resource<Span>
 
   /**
    * A unique ID for the trace of this span, if available.
-   * This can be useful to include in error messages for example, so you can quickly find the associated trace.
+   * Useful to include in error messages for example, to find an associated trace.
    */
   public fun traceId(): String?
 
