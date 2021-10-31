@@ -8,8 +8,8 @@ plugins {
   kotlin("multiplatform") version "1.5.31" apply false
   id("org.jlleitschuh.gradle.ktlint") version "10.2.0" apply true
   id("io.kotest.multiplatform") version "5.0.0.5"
-  id("io.arrow-kt.arrow-gradle-config-nexus") version "0.3.7"
-  id("io.arrow-kt.arrow-gradle-config-publish-multiplatform") version "0.3.7"
+  id("io.arrow-kt.arrow-gradle-config-nexus") version "0.4.1"
+  id("io.arrow-kt.arrow-gradle-config-publish-multiplatform") version "0.4.1"
 }
 
 allprojects {
