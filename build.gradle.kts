@@ -10,7 +10,6 @@ plugins {
   id("io.kotest.multiplatform") version "5.0.0.5"
   id("io.arrow-kt.arrow-gradle-config-nexus") version "0.4.1"
   id("io.arrow-kt.arrow-gradle-config-publish-multiplatform") version "0.4.1"
-
 }
 
 allprojects {
