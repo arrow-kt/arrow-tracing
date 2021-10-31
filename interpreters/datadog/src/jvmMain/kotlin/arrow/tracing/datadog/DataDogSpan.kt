@@ -47,7 +47,7 @@ internal fun datadogSpan(tracer: Tracer, span: io.opentracing.Span, uriPrefix: U
       return Kernel(map)
     }
 
-    override suspend fun span(name: String): Resource<Span> =
+    override suspend fun continueWithChild(name: String): Resource<Span> =
       resource {
         tracer.buildSpan(name).asChildOf(span).start()
       }.releaseCase { child, exitCase ->
@@ -55,7 +55,8 @@ internal fun datadogSpan(tracer: Tracer, span: io.opentracing.Span, uriPrefix: U
           is ExitCase.Failure -> child.log(exitCase.failure.toString()).finish()
           else -> child.finish()
         }
-      }.map { datadogSpan(tracer, it, uriPrefix) }.putErrorFields()
+      }.map { datadogSpan(tracer, it, uriPrefix) }
+        .putErrorFields()
 
     override fun traceId(): String? =
       span.context().toTraceId()

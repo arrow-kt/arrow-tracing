@@ -32,7 +32,7 @@ import io.opencensus.trace.propagation.TextFormat.Getter
 public interface OpenCensusSpan : Span {
   public val span: io.opencensus.trace.Span
   override suspend fun traceUriPath(): String? = null
-  override suspend fun span(name: String): Resource<OpenCensusSpan>
+  override suspend fun continueWithChild(name: String): Resource<OpenCensusSpan>
 }
 
 internal fun opensensusSpan(
@@ -64,8 +64,9 @@ internal fun opensensusSpan(
       return Kernel(headers.toMap())
     }
 
-    override suspend fun span(name: String): Resource<OpenCensusSpan> =
-      resource { child(name) }.releaseCase { oc, exitCase -> oc.close(exitCase) }
+    override suspend fun continueWithChild(name: String): Resource<OpenCensusSpan> =
+      resource { child(name) }
+        .releaseCase { oc, exitCase -> oc.close(exitCase) }
         .putErrorFields()
 
     override fun traceId(): String =

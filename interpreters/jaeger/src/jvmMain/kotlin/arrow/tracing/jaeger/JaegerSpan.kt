@@ -50,7 +50,7 @@ internal fun jaegerSpan(
       return Kernel(map)
     }
 
-    override suspend fun span(name: String): Resource<arrow.tracing.core.Span> =
+    override suspend fun continueWithChild(name: String): Resource<arrow.tracing.core.Span> =
       resource { tracer.buildSpan(name).asChildOf(span).start() }
         .release { it.finish() }
         .map { jaegerSpan(tracer, it, prefix) }
