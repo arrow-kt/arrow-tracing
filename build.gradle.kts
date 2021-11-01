@@ -8,8 +8,8 @@ plugins {
   kotlin("multiplatform") version "1.5.31" apply false
   id("org.jlleitschuh.gradle.ktlint") version "10.2.0" apply true
   id("io.kotest.multiplatform") version "5.0.0.5"
-  id("io.arrow-kt.arrow-gradle-config-nexus") version "0.4.1"
-  id("io.arrow-kt.arrow-gradle-config-publish-multiplatform") version "0.4.1"
+  id("io.arrow-kt.arrow-gradle-config-nexus") version "0.5.1"
+  id("io.arrow-kt.arrow-gradle-config-publish-multiplatform") version "0.5.1"
 }
 
 allprojects {
@@ -72,10 +72,10 @@ subprojects {
         val commonTest by getting {
           dependsOn(commonMain)
           dependencies {
-            implementation("io.kotest:kotest-framework-engine:5.0.0.M3")
+            implementation("io.kotest:kotest-framework-engine:5.0.0.687-SNAPSHOT")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
-            implementation("io.kotest:kotest-assertions-core:5.0.0.M3")
-            implementation("io.kotest:kotest-property:5.0.0.M3")
+            implementation("io.kotest:kotest-assertions-core:5.0.0.687-SNAPSHOT")
+            implementation("io.kotest:kotest-property:5.0.0.687-SNAPSHOT")
             implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
           }
         }
@@ -84,7 +84,7 @@ subprojects {
           dependsOn(commonTest)
           dependsOn(jvmMain)
           dependencies {
-            implementation("io.kotest:kotest-runner-junit5:5.0.0.M3")
+            implementation("io.kotest:kotest-runner-junit5:5.0.0.687-SNAPSHOT")
           }
         }
       }
