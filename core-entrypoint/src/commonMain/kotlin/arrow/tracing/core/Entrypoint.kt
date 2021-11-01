@@ -8,14 +8,21 @@ import arrow.fx.coroutines.Resource
 public interface Entrypoint {
 
   /** convenience function for [withRoot] **/
-  public suspend fun <A> withRoot(name: String, trace: suspend (Span) -> A): A =
+  public suspend fun <A> withRoot(
+    name: String,
+    trace: suspend (span: Span) -> A
+  ): A =
     withRoot(name).use(trace)
 
   /** creates a new root span in a new trace.*/
   public fun withRoot(name: String): Resource<Span>
 
   /** convenience function for [continueWithChild] **/
-  public suspend fun <A> continueWithChild(name: String, kernel: Kernel, trace: suspend (Span?) -> A): A =
+  public suspend fun <A> continueWithChild(
+    name: String,
+    kernel: Kernel,
+    trace: suspend (span: Span?) -> A
+  ): A =
     continueWithChild(name, kernel).use(trace)
 
   /**
@@ -27,7 +34,11 @@ public interface Entrypoint {
   public fun continueWithChild(name: String, kernel: Kernel): Resource<Span?>
 
   /** convenience function for [continueWithChildOrRoot] **/
-  public suspend fun <A> continueWithChildOrRoot(name: String, kernel: Kernel, trace: suspend (Span) -> A): A =
+  public suspend fun <A> continueWithChildOrRoot(
+    name: String,
+    kernel: Kernel,
+    trace: suspend (span: Span) -> A
+  ): A =
     continueWithChildOrRoot(name, kernel).use(trace)
 
   /**
