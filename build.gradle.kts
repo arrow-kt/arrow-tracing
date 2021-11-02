@@ -72,10 +72,10 @@ subprojects {
         val commonTest by getting {
           dependsOn(commonMain)
           dependencies {
-            implementation("io.kotest:kotest-framework-engine:5.0.0.M3")
+            implementation("io.kotest:kotest-framework-engine:5.0.0.690-SNAPSHOT")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
-            implementation("io.kotest:kotest-assertions-core:5.0.0.M3")
-            implementation("io.kotest:kotest-property:5.0.0.M3")
+            implementation("io.kotest:kotest-assertions-core:5.0.0.690-SNAPSHOT")
+            implementation("io.kotest:kotest-property:5.0.0.690-SNAPSHOT")
             implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
           }
         }
@@ -84,7 +84,7 @@ subprojects {
           dependsOn(commonTest)
           dependsOn(jvmMain)
           dependencies {
-            implementation("io.kotest:kotest-runner-junit5:5.0.0.M3")
+            implementation("io.kotest:kotest-runner-junit5:5.0.0.690-SNAPSHOT")
           }
         }
       }
