@@ -7,9 +7,9 @@ kotlin {
     }
     jvmMain {
       dependencies {
-        implementation("com.newrelic.telemetry:telemetry:0.10.0")
-        implementation("com.newrelic.telemetry:telemetry-core:0.12.0")
-        implementation("com.newrelic.telemetry:telemetry-http-okhttp:0.12.0")
+        implementation(libs.newrelic.telemetry)
+        implementation(libs.newrelic.telemetry.core)
+        implementation(libs.newrelic.telemetry.okhttp)
       }
     }
   }

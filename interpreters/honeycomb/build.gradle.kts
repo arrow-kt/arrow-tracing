@@ -7,7 +7,7 @@ kotlin {
     }
     jvmMain {
       dependencies {
-        implementation("io.honeycomb.libhoney:libhoney-java:1.3.1")
+        implementation(libs.libhoney.java)
       }
     }
   }

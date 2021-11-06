@@ -1,3 +1,5 @@
+@file:kotlin.Suppress("DSL_SCOPE_VIOLATION")
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
@@ -5,11 +7,11 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
-  kotlin("multiplatform") version "1.5.31" apply false
-  id("org.jlleitschuh.gradle.ktlint") version "10.2.0" apply true
-  id("io.kotest.multiplatform") version "5.0.0.5"
-  id("io.arrow-kt.arrow-gradle-config-nexus") version "0.5.1"
-  id("io.arrow-kt.arrow-gradle-config-publish-multiplatform") version "0.5.1"
+  alias(libs.plugins.kotlin.multiplatform) apply false
+  alias(libs.plugins.ktlint)
+  alias(libs.plugins.kotest.multiplatform)
+  alias(libs.plugins.arrowGradleConfig.nexus)
+  alias(libs.plugins.arrowGradleConfig.publishMultiplatform)
 }
 
 allprojects {
@@ -41,7 +43,7 @@ allprojects {
 }
 
 subprojects {
-  if (!listOf("interpreters", "example").contains(name)) {
+  if (!listOf("interpreters").contains(name)) {
     apply(plugin = "org.jetbrains.kotlin.multiplatform")
 
     kotlin {
@@ -60,8 +62,8 @@ subprojects {
       sourceSets {
         val commonMain by getting {
           dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
-            compileOnly("io.arrow-kt:arrow-fx-coroutines:1.0.1")
+            implementation(rootProject.libs.kotlin.stdlibCommon)
+            compileOnly(rootProject.libs.arrow.fx)
           }
         }
 
@@ -72,11 +74,11 @@ subprojects {
         val commonTest by getting {
           dependsOn(commonMain)
           dependencies {
-            implementation("io.kotest:kotest-framework-engine:5.0.0.M3")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
-            implementation("io.kotest:kotest-assertions-core:5.0.0.M3")
-            implementation("io.kotest:kotest-property:5.0.0.M3")
-            implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
+            implementation(rootProject.libs.kotest.frameworkEngine)
+            implementation(rootProject.libs.coroutines.core)
+            implementation(rootProject.libs.kotest.assertionsCore)
+            implementation(rootProject.libs.kotest.property)
+            implementation(rootProject.libs.arrow.fx)
           }
         }
 
@@ -84,7 +86,7 @@ subprojects {
           dependsOn(commonTest)
           dependsOn(jvmMain)
           dependencies {
-            implementation("io.kotest:kotest-runner-junit5:5.0.0.M3")
+            implementation(rootProject.libs.kotest.runnerJUnit5)
           }
         }
       }
