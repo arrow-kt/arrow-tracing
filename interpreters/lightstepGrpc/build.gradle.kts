@@ -7,7 +7,7 @@ kotlin {
     }
     jvmMain {
       dependencies {
-        implementation("com.lightstep.tracer:tracer-grpc:0.30.3")
+        implementation(libs.lightstep.grpc)
         // grpc dependency with ktor
       }
     }

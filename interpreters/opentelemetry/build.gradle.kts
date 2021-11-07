@@ -2,7 +2,7 @@ kotlin {
   sourceSets {
     commonMain {
       dependencies {
-        implementation(project(coreEntrypoint))
+        api(project(coreEntrypoint))
       }
     }
     jvmMain {

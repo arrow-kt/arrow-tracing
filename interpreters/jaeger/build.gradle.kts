@@ -7,7 +7,7 @@ kotlin {
     }
     jvmMain {
       dependencies {
-        implementation("io.jaegertracing:jaeger-client:1.6.0")
+        implementation(libs.jaeger.client)
       }
     }
   }

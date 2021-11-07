@@ -2,12 +2,12 @@ kotlin {
   sourceSets {
     commonMain {
       dependencies {
-        implementation(project(coreEntrypoint))
+        api(project(coreEntrypoint))
       }
     }
     jvmMain {
       dependencies {
-        implementation("io.opencensus:opencensus-exporter-trace-ocagent:0.28.3")
+        implementation(libs.opencensus.exporterTraceOcagent)
       }
     }
     //jsMain {

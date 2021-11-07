@@ -7,7 +7,7 @@ kotlin {
     }
     jvmMain {
       dependencies {
-        implementation("com.lightstep.tracer:lightstep-tracer-jre:0.30.5")
+        implementation(libs.lightstep.jre)
       }
     }
   }
