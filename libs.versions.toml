@@ -3,7 +3,7 @@ kotlin = "1.5.31"
 arrow = "1.0.1"
 arrowGradleConfig = "0.5.1"
 coroutines = "1.5.2"
-kotest = "5.0.0.M3"
+kotest = "5.0.0.698-SNAPSHOT"
 kotestGradle = "5.0.0.5"
 ktlint = "10.2.0"
 opentracing = "0.33.0"
@@ -14,7 +14,7 @@ lightstep = "0.30.3"
 lightstepJre = "0.30.5"
 jaeger = "1.6.0"
 libhoney = "1.3.1"
-datadog = "0.89.0"
+datadog = "0.90.0"
 
 [libraries]
 kotlin-stdlibCommon = { module = "org.jetbrains.kotlin:kotlin-stdlib-common", version.ref = "kotlin" }
