@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 20
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -41,7 +41,7 @@ jobs:
           done
       - name: "Make test reports available to download"
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-reports
           path: test-reports
