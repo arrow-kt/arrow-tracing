@@ -1,14 +1,16 @@
-kotlin {
-  sourceSets {
-    commonMain {
-      dependencies {
-        api(project(lightstep))
-      }
-    }
-    jvmMain {
-      dependencies {
-        implementation(libs.lightstep.okhtpp)
-      }
-    }
-  }
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
+  id(libs.plugins.kotlin.jvm.get().pluginId)
+  alias(libs.plugins.arrowGradleConfig.kotlin)
+  alias(libs.plugins.arrowGradleConfig.publish)
+}
+
+dependencies {
+  implementation(libs.kotlin.stdlibCommon)
+
+  api(projects.interpreters.lightstep)
+  api(libs.lightstep.okhtpp)
+
+  testImplementation(libs.bundles.kotest.jvm)
+
 }
