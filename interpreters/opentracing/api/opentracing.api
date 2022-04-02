@@ -1,0 +1,6 @@
+public final class arrow/tracing/opentracing/InterpreterKt {
+	public static final fun hasRegisteredTracer (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun registerTracer (Lio/opentracing/Tracer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun tracerOrNull (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+

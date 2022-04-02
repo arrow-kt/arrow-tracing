@@ -1,0 +1,28 @@
+public final class arrow/tracing/opencensus/InterpreterKt {
+	public static final fun entrypoint (Ljava/lang/String;Lio/opencensus/trace/Sampler;Lkotlin/jvm/functions/Function1;)Larrow/fx/coroutines/Resource;
+	public static synthetic fun entrypoint$default (Ljava/lang/String;Lio/opencensus/trace/Sampler;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Larrow/fx/coroutines/Resource;
+}
+
+public abstract interface class arrow/tracing/opencensus/OpenCensusEntrypoint : arrow/tracing/core/Entrypoint {
+	public abstract fun continueWithChild (Ljava/lang/String;Larrow/tracing/core/Kernel;)Larrow/fx/coroutines/Resource;
+	public abstract fun continueWithChildOrRoot (Ljava/lang/String;Larrow/tracing/core/Kernel;)Larrow/fx/coroutines/Resource;
+	public abstract fun withRoot (Ljava/lang/String;)Larrow/fx/coroutines/Resource;
+}
+
+public final class arrow/tracing/opencensus/OpenCensusEntrypoint$DefaultImpls {
+	public static fun continueWithChild (Larrow/tracing/opencensus/OpenCensusEntrypoint;Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun continueWithChildOrRoot (Larrow/tracing/opencensus/OpenCensusEntrypoint;Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun withRoot (Larrow/tracing/opencensus/OpenCensusEntrypoint;Ljava/lang/String;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class arrow/tracing/opencensus/OpenCensusSpan : arrow/tracing/core/Span {
+	public abstract fun continueWithChild (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getSpan ()Lio/opencensus/trace/Span;
+	public abstract fun traceUriPath (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class arrow/tracing/opencensus/OpenCensusSpan$DefaultImpls {
+	public static fun put (Larrow/tracing/opencensus/OpenCensusSpan;[Lkotlin/Pair;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun traceUriPath (Larrow/tracing/opencensus/OpenCensusSpan;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+

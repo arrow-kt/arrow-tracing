@@ -1,0 +1,50 @@
+public final class example/DbTags {
+	public static final field INSTANCE Lexample/DbTags;
+	public final fun instanceNameOf (Ljava/lang/String;)Lkotlin/Pair;
+	public final fun statementTypeOf (Ljava/lang/String;)Lkotlin/Pair;
+	public final fun type (Ljava/lang/String;)Lkotlin/Pair;
+	public final fun userName (Ljava/lang/String;)Lkotlin/Pair;
+}
+
+public final class example/HttpTags {
+	public static final field INSTANCE Lexample/HttpTags;
+	public final fun methodOf (Ljava/lang/String;)Lkotlin/Pair;
+	public final fun statusCodeOf (I)Lkotlin/Pair;
+	public final fun url (Ljava/lang/String;)Lkotlin/Pair;
+}
+
+public final class example/MessageBusTags {
+	public static final field INSTANCE Lexample/MessageBusTags;
+	public final fun destination (Ljava/lang/String;)Lkotlin/Pair;
+}
+
+public final class example/PeerTags {
+	public static final field INSTANCE Lexample/PeerTags;
+	public final fun hostname (Ljava/lang/String;)Lkotlin/Pair;
+	public final fun ipv4 (Ljava/lang/String;)Lkotlin/Pair;
+	public final fun ipv6 (Ljava/lang/String;)Lkotlin/Pair;
+	public final fun remoteAddress (Ljava/lang/String;)Lkotlin/Pair;
+	public final fun remotePort (I)Lkotlin/Pair;
+	public final fun serviceName (Ljava/lang/String;)Lkotlin/Pair;
+}
+
+public final class example/SamplingTags {
+	public static final field INSTANCE Lexample/SamplingTags;
+	public final fun priorityOf (I)Lkotlin/Pair;
+}
+
+public final class example/SpanTags {
+	public static final field INSTANCE Lexample/SpanTags;
+	public static final field clientKind Ljava/lang/String;
+	public static final field consumerKind Ljava/lang/String;
+	public static final field producerKind Ljava/lang/String;
+	public static final field serverKind Ljava/lang/String;
+	public final fun kindOf (Ljava/lang/String;)Lkotlin/Pair;
+}
+
+public final class example/Tags {
+	public static final field INSTANCE Lexample/Tags;
+	public final fun component (Ljava/lang/String;)Lkotlin/Pair;
+	public final fun error (Z)Lkotlin/Pair;
+}
+

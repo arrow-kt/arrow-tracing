@@ -20,26 +20,18 @@ public data class CharValue(override val value: Char) : TraceValue
 
 public data class ShortValue(override val value: Short) : TraceValue
 
-public fun String.toTraceValue(): StringValue =
-  StringValue(this)
+public fun String.toTraceValue(): StringValue = StringValue(this)
 
-public fun Boolean.toTraceValue(): BooleanValue =
-  BooleanValue(this)
+public fun Boolean.toTraceValue(): BooleanValue = BooleanValue(this)
 
-public fun Double.toTraceValue(): DoubleValue =
-  DoubleValue(this)
+public fun Double.toTraceValue(): DoubleValue = DoubleValue(this)
 
-public fun Float.toTraceValue(): FloatValue =
-  FloatValue(this)
+public fun Float.toTraceValue(): FloatValue = FloatValue(this)
 
-public fun Long.toTraceValue(): LongValue =
-  LongValue(this)
+public fun Long.toTraceValue(): LongValue = LongValue(this)
 
-public fun Int.toTraceValue(): IntValue =
-  IntValue(this)
+public fun Int.toTraceValue(): IntValue = IntValue(this)
 
-public fun Char.toTraceValue(): CharValue =
-  CharValue(this)
+public fun Char.toTraceValue(): CharValue = CharValue(this)
 
-public fun Short.toTraceValue(): ShortValue =
-  ShortValue(this)
+public fun Short.toTraceValue(): ShortValue = ShortValue(this)
