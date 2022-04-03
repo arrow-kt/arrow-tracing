@@ -11,8 +11,7 @@ public interface Span {
   public suspend fun put(fields: List<Pair<String, TraceValue>>): Unit
 
   /** puts [fields] into this span. */
-  public suspend fun put(vararg fields: Pair<String, TraceValue>): Unit =
-    put(fields.toList())
+  public suspend fun put(vararg fields: Pair<String, TraceValue>): Unit = put(fields.toList())
 
   /**
    * The kernel for this span, which can be sent as headers to remote systems, which can then
@@ -24,8 +23,8 @@ public interface Span {
   public suspend fun continueWithChild(name: String): Resource<Span>
 
   /**
-   * A unique ID for the trace of this span, if available.
-   * Useful to include in error messages for example, to find an associated trace.
+   * A unique ID for the trace of this span, if available. Useful to include in error messages for
+   * example, to find an associated trace.
    */
   public fun traceId(): String?
 
@@ -43,26 +42,27 @@ public interface Span {
 }
 
 /**
- * Adds error message and stacktrace, if existent, to fields when an error or cancellation is raised/triggered.
+ * Adds error message and stacktrace, if existent, to fields when an error or cancellation is
+ * raised/triggered.
  */
-public fun <S : Span?> Resource<S>.putErrorFields(): Resource<S> =
-  flatMap {
-    resource { it }
-      .releaseCase { s, exit ->
-        when (exit) {
-          is ExitCase.Failure -> s?.put(
-            Pair(
-              exit.failure.message ?: "Failure has been raised: Exitcase.Failure",
-              exit.failure.cause?.stackTraceToString().orEmpty().toTraceValue()
-            )
+public fun <S : Span?> Resource<S>.putErrorFields(): Resource<S> = flatMap {
+  resource { it }.releaseCase { s, exit ->
+    when (exit) {
+      is ExitCase.Failure ->
+        s?.put(
+          Pair(
+            exit.failure.message ?: "Failure has been raised: Exitcase.Failure",
+            exit.failure.cause?.stackTraceToString().orEmpty().toTraceValue()
           )
-          is ExitCase.Cancelled -> s?.put(
-            Pair(
-              exit.exception.message ?: "Span has been cancelled: Exitcase.Cancelled",
-              exit.exception.cause?.stackTraceToString().orEmpty().toTraceValue()
-            )
+        )
+      is ExitCase.Cancelled ->
+        s?.put(
+          Pair(
+            exit.exception.message ?: "Span has been cancelled: Exitcase.Cancelled",
+            exit.exception.cause?.stackTraceToString().orEmpty().toTraceValue()
           )
-          else -> Unit
-        }
-      }
+        )
+      else -> Unit
+    }
   }
+}

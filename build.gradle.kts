@@ -1,117 +1,64 @@
-@file:kotlin.Suppress("DSL_SCOPE_VIOLATION")
-
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   alias(libs.plugins.kotlin.multiplatform) apply false
-  alias(libs.plugins.ktlint)
   alias(libs.plugins.kotest.multiplatform)
+  alias(libs.plugins.arrowGradleConfig.formatter)
   alias(libs.plugins.arrowGradleConfig.nexus)
-  alias(libs.plugins.arrowGradleConfig.publishMultiplatform)
+  alias(libs.plugins.arrowGradleConfig.versioning)
+  alias(libs.plugins.binaryCompatibilityValidator)
+  alias(libs.plugins.detekt)
+  alias(libs.plugins.kover)
 }
 
 allprojects {
-  apply(plugin = "io.kotest.multiplatform")
-  apply(plugin = "org.jlleitschuh.gradle.ktlint")
-  apply(plugin = "org.gradle.idea")
-
-  group = "io.arrow-kt"
-  version = "0.1.0-SNAPSHOT"
+  group = property("projects.group").toString()
 
   repositories {
     google()
     mavenCentral()
-    maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
   }
 
-  tasks.withType<KotlinCompile> {
-    kotlinOptions {
-      jvmTarget = "1.8"
-      freeCompilerArgs = listOf("-Xjsr305=strict")
-    }
-  }
+  tasks.withType<Test> {
+    useJUnitPlatform()
+    maxParallelForks = Runtime.getRuntime().availableProcessors()
 
-  ktlint {
-    filter {
-      exclude("build.gradle.kts", "settings.gradle.kts")
-    }
-  }
-}
-
-subprojects {
-  if (!listOf("interpreters").contains(name)) {
-    apply(plugin = "org.jetbrains.kotlin.multiplatform")
-
-    kotlin {
-      explicitApi()
-
-      targets {
-        jvm {
-          compilations.all {
-            kotlinOptions {
-              jvmTarget = "1.8"
-            }
-          }
-        }
-      }
-
-      sourceSets {
-        val commonMain by getting {
-          dependencies {
-            implementation(rootProject.libs.kotlin.stdlibCommon)
-            compileOnly(rootProject.libs.arrow.fx)
-          }
-        }
-
-        val jvmMain by getting {
-          dependsOn(commonMain)
-        }
-
-        val commonTest by getting {
-          dependsOn(commonMain)
-          dependencies {
-            implementation(rootProject.libs.kotest.frameworkEngine)
-            implementation(rootProject.libs.coroutines.core)
-            implementation(rootProject.libs.kotest.assertionsCore)
-            implementation(rootProject.libs.kotest.property)
-            implementation(rootProject.libs.arrow.fx)
-          }
-        }
-
-        val jvmTest by getting {
-          dependsOn(commonTest)
-          dependsOn(jvmMain)
-          dependencies {
-            implementation(rootProject.libs.kotest.runnerJUnit5)
-          }
-        }
-      }
-    }
-
-    tasks.named<Test>("jvmTest") {
-      useJUnitPlatform()
-      testLogging {
-        showExceptions = true
-        showStandardStreams = true
-        events = setOf(
-          TestLogEvent.FAILED,
-          TestLogEvent.PASSED
-        )
-        exceptionFormat = TestExceptionFormat.FULL
-      }
+    testLogging {
+      showExceptions = true
+      showStandardStreams = true
+      exceptionFormat = TestExceptionFormat.FULL
+      events("passed", "skipped", "failed", "standardOut", "standardError")
     }
   }
 }
 
-fun Project.kotlin(configure: Action<KotlinMultiplatformExtension>): Unit =
-  (this as ExtensionAware).extensions.configure("kotlin", configure)
+tasks.withType<KotlinCompile>().configureEach {
+  kotlinOptions.jvmTarget = "1.8"
+  sourceCompatibility = "1.8"
+  targetCompatibility = "1.8"
+}
 
-fun KotlinMultiplatformExtension.targets(configure: Action<Any>): Unit =
-  (this as ExtensionAware).extensions.configure("targets", configure)
+tasks.withType<Detekt>().configureEach {
+  jvmTarget = "1.8"
+  reports {
+    html.required.set(true)
+    sarif.required.set(true)
+    txt.required.set(false)
+    xml.required.set(false)
+  }
+}
 
-fun KotlinMultiplatformExtension.sourceSets(configure: Action<NamedDomainObjectContainer<KotlinSourceSet>>): Unit =
-  (this as ExtensionAware).extensions.configure("sourceSets", configure)
+tasks.withType<DetektCreateBaselineTask>().configureEach {
+  jvmTarget = "1.8"
+}
+
+// static analysis tool
+detekt {
+  parallel = true
+  buildUponDefaultConfig = true
+  allRules = true
+}

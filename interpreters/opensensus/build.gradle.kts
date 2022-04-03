@@ -1,22 +1,15 @@
-kotlin {
-  sourceSets {
-    commonMain {
-      dependencies {
-        api(project(coreEntrypoint))
-      }
-    }
-    jvmMain {
-      dependencies {
-        implementation(libs.opencensus.exporterTraceOcagent)
-      }
-    }
-    //jsMain {
-    // dependencies {
-    //implementation(npm("@opencensus/core", "0.1.0", generateExternals = true))
-    //implementation(npm("@opencensus/nodejs", "0.1.0", generateExternals = true))
-    //implementation(npm("@opencensus/nodejs-base", "0.1.0", generateExternals = true))
-    //implementation(npm("@opencensus/exporter-ocagent", "0.1.0", generateExternals = true))
-    //}
-    //}
-  }
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
+  id(libs.plugins.kotlin.jvm.get().pluginId)
+  alias(libs.plugins.arrowGradleConfig.kotlin)
+  alias(libs.plugins.arrowGradleConfig.publish)
+}
+
+dependencies {
+  implementation(libs.kotlin.stdlibCommon)
+
+  api(projects.coreEntrypoint)
+  api(libs.opencensus.exporterTraceOcagent)
+
+  testImplementation(libs.bundles.kotest.jvm)
 }
