@@ -3,6 +3,7 @@ kotlin = "1.6.20"
 arrow = "1.0.1"
 arrowGradleConfig = "0.10.0"
 coroutines = "1.6.0"
+kotestPlugin = "5.2.1"
 kotest = "5.2.2"
 kotestArrow = "1.2.4"
 opentracing = "0.33.0"
@@ -62,7 +63,7 @@ arrowGradleConfig-nexus = { id = "io.arrow-kt.arrow-gradle-config-nexus", versio
 arrowGradleConfig-publish = { id = "io.arrow-kt.arrow-gradle-config-publish", version.ref = "arrowGradleConfig" }
 arrowGradleConfig-versioning = { id = "io.arrow-kt.arrow-gradle-config-versioning", version.ref = "arrowGradleConfig" }
 binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinBinaryCompatibilityValidator" }
-kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
+kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotestPlugin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
