@@ -2,7 +2,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 enableFeaturePreview("VERSION_CATALOGS")
 
 plugins {
-  id("com.gradle.enterprise") version "3.8.1"
+  id("com.gradle.enterprise") version "3.9"
 }
 
 dependencyResolutionManagement {
