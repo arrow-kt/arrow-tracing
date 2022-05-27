@@ -2,7 +2,7 @@
 kotlin = "1.6.10"
 arrow = "1.0.1"
 arrowGradleConfig = "0.10.0"
-coroutines = "1.6.0"
+coroutines = "1.6.1"
 kotest = "5.2.1"
 kotestArrow = "1.2.4"
 opentracing = "0.33.0"
