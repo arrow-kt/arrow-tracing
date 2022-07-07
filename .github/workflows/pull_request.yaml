@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 20
 
     steps:
-      - uses: actions/checkout@v3.0.0
+      - uses: actions/checkout@v3.0.2
         with:
           fetch-depth: 0
 
@@ -28,7 +28,7 @@ jobs:
           arguments:  build --scan --stacktrace
 
       - name: Upload reports
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: 'reports-ubuntu-latest'
           path: '**/build/reports/**'
