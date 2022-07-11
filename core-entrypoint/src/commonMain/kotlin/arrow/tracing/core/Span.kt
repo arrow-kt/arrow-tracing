@@ -2,8 +2,6 @@ package arrow.tracing.core
 
 import arrow.fx.coroutines.ExitCase
 import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.releaseCase
-import arrow.fx.coroutines.resource
 
 /** A span that can be passed around and can create child spans. */
 public interface Span {
@@ -46,7 +44,7 @@ public interface Span {
  * raised/triggered.
  */
 public fun <S : Span?> Resource<S>.putErrorFields(): Resource<S> = flatMap {
-  resource { it }.releaseCase { s, exit ->
+  Resource({ it }) { s, exit ->
     when (exit) {
       is ExitCase.Failure ->
         s?.put(

@@ -1,10 +1,8 @@
 package arrow.tracing.jaeger
 
 import arrow.core.Nullable
-import arrow.core.computations.nullable
+import arrow.core.continuations.nullable
 import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.release
-import arrow.fx.coroutines.resource
 import arrow.tracing.core.BooleanValue
 import arrow.tracing.core.CharValue
 import arrow.tracing.core.DoubleValue
@@ -47,8 +45,7 @@ internal fun jaegerSpan(tracer: Tracer, span: Span, prefix: URI?): arrow.tracing
     }
 
     override suspend fun continueWithChild(name: String): Resource<arrow.tracing.core.Span> =
-      resource { tracer.buildSpan(name).asChildOf(span).start() }
-        .release { it.finish() }
+      Resource({ tracer.buildSpan(name).asChildOf(span).start() }) { span, _ -> span.finish() }
         .map { jaegerSpan(tracer, it, prefix) }
         .putErrorFields()
 

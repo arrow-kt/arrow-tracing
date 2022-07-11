@@ -1,8 +1,6 @@
 package arrow.tracing.jaeger
 
 import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.release
-import arrow.fx.coroutines.resource
 import arrow.tracing.core.Entrypoint
 import arrow.tracing.opentracing.registerTracer
 import arrow.tracing.opentracing.tracerOrNull
@@ -15,11 +13,12 @@ public fun entrypoint(
   uriPrefix: URI? = null,
   config: Configuration.() -> JaegerTracer = { tracer }
 ): Resource<Entrypoint> =
-  resource { Configuration(serviceName).config().also { registerTracer(it) } }
-    .release { it.close() }
+  Resource({ Configuration(serviceName).config().also { registerTracer(it) } }) { tracer, _ ->
+    tracer.close()
+  }
     .map { jaegerEntrypoint(it, uriPrefix) }
 
 public fun globalEntrypoint(uriPrefix: URI? = null): Resource<Entrypoint?> =
-  resource { tracerOrNull() }.release { it?.close() }.map { t ->
+  Resource({ tracerOrNull() }) { tracer, _ -> tracer?.close() }.map { t ->
     t?.let { jaegerEntrypoint(it, uriPrefix) }
   }
