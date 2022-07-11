@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.6.10"
 arrow = "1.0.1"
-arrowGradleConfig = "0.10.0"
+arrowGradleConfig = "0.10.2"
 coroutines = "1.6.1"
 kotest = "5.2.1"
 kotestArrow = "1.2.4"
