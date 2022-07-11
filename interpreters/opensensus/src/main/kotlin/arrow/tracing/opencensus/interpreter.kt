@@ -15,9 +15,9 @@ public fun entrypoint(
   sampler: Sampler,
   config:
     OcAgentTraceExporterConfiguration.Builder.() -> OcAgentTraceExporterConfiguration.Builder =
-      {
-    this
-  }
+    {
+      this
+    }
 ): Resource<OpenCensusEntrypoint> =
   resource {
     OcAgentTraceExporter.createAndRegister(

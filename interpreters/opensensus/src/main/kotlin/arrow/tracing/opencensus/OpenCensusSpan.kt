@@ -2,11 +2,9 @@
 
 package arrow.tracing.opencensus
 
-import arrow.core.computations.nullable
+import arrow.core.continuations.nullable
 import arrow.fx.coroutines.ExitCase
 import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.releaseCase
-import arrow.fx.coroutines.resource
 import arrow.tracing.core.BooleanValue
 import arrow.tracing.core.CharValue
 import arrow.tracing.core.DoubleValue
@@ -70,7 +68,7 @@ internal fun opensensusSpan(tracer: Tracer, span: io.opencensus.trace.Span): Ope
     }
 
     override suspend fun continueWithChild(name: String): Resource<OpenCensusSpan> =
-      resource { child(name) }.releaseCase { oc, exitCase -> oc.close(exitCase) }.putErrorFields()
+      Resource({ child(name) }) { oc, exitCase -> oc.close(exitCase) }.putErrorFields()
 
     override fun traceId(): String = span.context.traceId.toLowerBase16()
 
@@ -103,11 +101,11 @@ internal suspend fun root(tracer: Tracer, name: String, sampler: Sampler): OpenC
  * are incomplete or invalid
  */
 internal suspend fun fromKernel(tracer: Tracer, name: String, kernel: Kernel): OpenCensusSpan? =
-    nullable {
-  val ctx = Tracing.getPropagationComponent().b3Format.extract(kernel, contextGetter).bind()
-  val span = tracer.spanBuilderWithRemoteParent(name, ctx).startSpan().bind()
-  opensensusSpan(tracer, span)
-}
+  nullable {
+    val ctx = Tracing.getPropagationComponent().b3Format.extract(kernel, contextGetter).bind()
+    val span = tracer.spanBuilderWithRemoteParent(name, ctx).startSpan().bind()
+    opensensusSpan(tracer, span)
+  }
 
 internal suspend fun fromKernelOrElseRoot(
   tracer: Tracer,

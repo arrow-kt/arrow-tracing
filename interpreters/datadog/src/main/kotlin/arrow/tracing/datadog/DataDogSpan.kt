@@ -3,7 +3,7 @@
 package arrow.tracing.datadog
 
 import arrow.core.Nullable
-import arrow.core.computations.nullable
+import arrow.core.continuations.nullable
 import arrow.fx.coroutines.ExitCase
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.releaseCase
