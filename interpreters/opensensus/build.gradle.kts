@@ -8,7 +8,7 @@ plugins {
 dependencies {
   implementation(libs.kotlin.stdlibCommon)
 
-  api(projects.coreEntrypoint)
+  api(project(":core-entrypoint"))
   api(libs.opencensus.exporterTraceOcagent)
 
   testImplementation(libs.bundles.kotest.jvm)

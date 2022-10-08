@@ -1,7 +1,7 @@
 [versions]
-kotlin = "1.7.20"
+kotlin = "1.7.10"
 arrow = "1.1.3"
-arrowGradleConfig = "0.10.1"
+arrowGradleConfig = "0.11.0-alpha.1"
 coroutines = "1.6.4"
 kotest = "5.5.0"
 kotestArrow = "1.2.5"
