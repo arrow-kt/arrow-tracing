@@ -20,6 +20,6 @@ public fun entrypoint(
     .map { datadogEntrypoint(it, uriPrefix) }
 
 public fun globalEntrypoint(uriPrefix: URI? = null): Resource<Entrypoint?> =
-  resource { tracerOrNull() }.release { Unit }.map { t ->
-    t?.let { datadogEntrypoint(it, uriPrefix) }
-  }
+  resource { tracerOrNull() }
+    .release { Unit }
+    .map { t -> t?.let { datadogEntrypoint(it, uriPrefix) } }

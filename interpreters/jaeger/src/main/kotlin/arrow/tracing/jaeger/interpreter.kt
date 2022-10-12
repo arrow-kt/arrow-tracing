@@ -14,11 +14,10 @@ public fun entrypoint(
   config: Configuration.() -> JaegerTracer = { tracer }
 ): Resource<Entrypoint> =
   Resource({ Configuration(serviceName).config().also { registerTracer(it) } }) { tracer, _ ->
-    tracer.close()
-  }
+      tracer.close()
+    }
     .map { jaegerEntrypoint(it, uriPrefix) }
 
 public fun globalEntrypoint(uriPrefix: URI? = null): Resource<Entrypoint?> =
-  Resource({ tracerOrNull() }) { tracer, _ -> tracer?.close() }.map { t ->
-    t?.let { jaegerEntrypoint(it, uriPrefix) }
-  }
+  Resource({ tracerOrNull() }) { tracer, _ -> tracer?.close() }
+    .map { t -> t?.let { jaegerEntrypoint(it, uriPrefix) } }

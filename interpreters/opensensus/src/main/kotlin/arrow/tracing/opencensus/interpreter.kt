@@ -20,9 +20,9 @@ public fun entrypoint(
     }
 ): Resource<OpenCensusEntrypoint> =
   resource {
-    OcAgentTraceExporter.createAndRegister(
-      config(OcAgentTraceExporterConfiguration.builder().setServiceName(serviceName)).build()
-    )
-  }
+      OcAgentTraceExporter.createAndRegister(
+        config(OcAgentTraceExporterConfiguration.builder().setServiceName(serviceName)).build()
+      )
+    }
     .release { OcAgentTraceExporter.unregister() }
     .flatMap { Resource.just(entrypoint(sampler)) }
