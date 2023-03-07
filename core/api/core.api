@@ -129,6 +129,9 @@ public final class arrow/tracing/core/StringValue : arrow/tracing/core/TraceValu
 	public fun toString ()Ljava/lang/String;
 }
 
+public abstract interface class arrow/tracing/core/Trace {
+}
+
 public abstract interface class arrow/tracing/core/TraceValue {
 	public abstract fun getValue ()Ljava/lang/Object;
 }

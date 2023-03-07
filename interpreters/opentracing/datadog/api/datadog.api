@@ -1,26 +1,3 @@
-public abstract interface class arrow/tracing/datadog/DDEntrypoint : arrow/tracing/core/Entrypoint {
-	public abstract fun continueWithChild (Ljava/lang/String;Larrow/tracing/core/Kernel;)Larrow/fx/coroutines/Resource;
-	public abstract fun continueWithChild (Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun continueWithChildOrRoot (Ljava/lang/String;Larrow/tracing/core/Kernel;)Larrow/fx/coroutines/Resource;
-	public abstract fun continueWithChildOrRoot (Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun withRoot (Ljava/lang/String;)Larrow/fx/coroutines/Resource;
-	public abstract fun withRoot (Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class arrow/tracing/datadog/DDEntrypoint$DefaultImpls {
-	public static fun continueWithChild (Larrow/tracing/datadog/DDEntrypoint;Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun continueWithChildOrRoot (Larrow/tracing/datadog/DDEntrypoint;Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun withRoot (Larrow/tracing/datadog/DDEntrypoint;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class arrow/tracing/datadog/DDSpan : arrow/tracing/opentracing/OTSpan, datadog/trace/api/Tracer {
-	public abstract fun continueWithChild (Ljava/lang/String;)Larrow/fx/coroutines/Resource;
-}
-
-public final class arrow/tracing/datadog/DDSpan$DefaultImpls {
-	public static fun put (Larrow/tracing/datadog/DDSpan;[Lkotlin/Pair;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
 public final class arrow/tracing/datadog/InterpreterKt {
 	public static final fun entrypoint (Ljava/lang/String;Ljava/net/URI;Lkotlin/jvm/functions/Function1;)Larrow/fx/coroutines/Resource;
 	public static synthetic fun entrypoint$default (Ljava/lang/String;Ljava/net/URI;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Larrow/fx/coroutines/Resource;

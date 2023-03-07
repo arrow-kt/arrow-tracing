@@ -13,7 +13,7 @@ public final class arrow/tracing/opentracing/OTEntrypoint$DefaultImpls {
 	public static fun withRoot (Larrow/tracing/opentracing/OTEntrypoint;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public abstract interface class arrow/tracing/opentracing/OTSpan : arrow/tracing/core/Span, io/opentracing/Span, io/opentracing/Tracer {
+public abstract interface class arrow/tracing/opentracing/OTSpan : arrow/tracing/core/Span, io/opentracing/Span {
 	public abstract fun continueWithChild (Ljava/lang/String;)Larrow/fx/coroutines/Resource;
 }
 
