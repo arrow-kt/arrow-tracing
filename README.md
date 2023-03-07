@@ -7,5 +7,4 @@ and begin another `Span` on other services.
 It provides these integrations with - list is still growing:
 - Jaeger with Opentracing [JVM]
 - Datadog with Opentracing [JVM]
-- Opensensus [JVM]
 - Opentracing [JVM]

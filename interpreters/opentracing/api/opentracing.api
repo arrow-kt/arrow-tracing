@@ -1,6 +1,27 @@
-public final class arrow/tracing/opentracing/InterpreterKt {
-	public static final fun hasRegisteredTracer (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun registerTracer (Lio/opentracing/Tracer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun tracerOrNull (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+public abstract interface class arrow/tracing/opentracing/OTEntrypoint : arrow/tracing/core/Entrypoint {
+	public abstract fun continueWithChild (Ljava/lang/String;Larrow/tracing/core/Kernel;)Larrow/fx/coroutines/Resource;
+	public abstract fun continueWithChild (Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun continueWithChildOrRoot (Ljava/lang/String;Larrow/tracing/core/Kernel;)Larrow/fx/coroutines/Resource;
+	public abstract fun continueWithChildOrRoot (Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun withRoot (Ljava/lang/String;)Larrow/fx/coroutines/Resource;
+	public abstract fun withRoot (Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class arrow/tracing/opentracing/OTEntrypoint$DefaultImpls {
+	public static fun continueWithChild (Larrow/tracing/opentracing/OTEntrypoint;Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun continueWithChildOrRoot (Larrow/tracing/opentracing/OTEntrypoint;Ljava/lang/String;Larrow/tracing/core/Kernel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun withRoot (Larrow/tracing/opentracing/OTEntrypoint;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class arrow/tracing/opentracing/OTSpan : arrow/tracing/core/Span, io/opentracing/Span, io/opentracing/Tracer {
+	public abstract fun continueWithChild (Ljava/lang/String;)Larrow/fx/coroutines/Resource;
+}
+
+public final class arrow/tracing/opentracing/OTSpan$DefaultImpls {
+	public static fun put (Larrow/tracing/opentracing/OTSpan;[Lkotlin/Pair;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class arrow/tracing/opentracing/UtilsKt {
+	public static final fun globalTracerOrNull (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 

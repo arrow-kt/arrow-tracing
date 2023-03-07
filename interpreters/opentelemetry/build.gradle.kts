@@ -6,9 +6,9 @@ plugins {
 }
 
 dependencies {
-  implementation(libs.kotlin.stdlibCommon)
+  implementation(libs.kotlin.stdlib)
 
-  api(projects.coreEntrypoint)
+  api(projects.core)
 
   testImplementation(libs.bundles.kotest.jvm)
 }
