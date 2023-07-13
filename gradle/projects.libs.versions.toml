@@ -16,7 +16,7 @@ libhoney = "1.5.0"
 datadog = "0.103.0"
 kotlinBinaryCompatibilityValidator = "0.10.1"
 detekt = "1.20.0"
-kover = "0.5.1"
+kover = "0.7.2"
 
 [libraries]
 kotlin-stdlibCommon = { module = "org.jetbrains.kotlin:kotlin-stdlib-common", version.ref = "kotlin" }
