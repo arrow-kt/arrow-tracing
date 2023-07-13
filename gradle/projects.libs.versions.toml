@@ -14,7 +14,7 @@ lightstepJre = "0.30.5"
 jaeger = "1.8.1"
 libhoney = "1.5.0"
 datadog = "0.103.0"
-kotlinBinaryCompatibilityValidator = "0.10.1"
+kotlinBinaryCompatibilityValidator = "0.13.2"
 detekt = "1.20.0"
 kover = "0.7.2"
 
