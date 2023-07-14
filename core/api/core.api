@@ -113,10 +113,6 @@ public final class arrow/tracing/core/Span$DefaultImpls {
 	public static fun put (Larrow/tracing/core/Span;[Lkotlin/Pair;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class arrow/tracing/core/SpanKt {
-	public static final fun putErrorFields (Lkotlin/jvm/functions/Function2;)Lkotlin/jvm/functions/Function2;
-}
-
 public final class arrow/tracing/core/StringValue : arrow/tracing/core/TraceValue {
 	public fun <init> (Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -240,12 +236,14 @@ public final class arrow/tracing/fx/ResourceKt {
 public abstract interface class arrow/tracing/fx/ResourceScope {
 	public abstract fun bind (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun install (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun installSpan (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun onRelease (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun release (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun releaseCase (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class arrow/tracing/fx/ResourceScope$DefaultImpls {
+	public static fun installSpan (Larrow/tracing/fx/ResourceScope;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun onRelease (Larrow/tracing/fx/ResourceScope;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun release (Larrow/tracing/fx/ResourceScope;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun releaseCase (Larrow/tracing/fx/ResourceScope;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

@@ -12,7 +12,6 @@ import arrow.tracing.core.LongValue
 import arrow.tracing.core.ShortValue
 import arrow.tracing.core.StringValue
 import arrow.tracing.core.TraceValue
-import arrow.tracing.core.putErrorFields
 import arrow.tracing.fx.ExitCase
 import arrow.tracing.fx.Resource
 import arrow.tracing.fx.resource
@@ -48,18 +47,16 @@ internal fun datadogSpan(tracer: DDTracer, span: io.opentracing.Span, uriPrefix:
       return Kernel(map)
     }
 
-    override fun continueWithChild(name: String): Resource<OTSpan> =
-      resource {
-          val childSpan =
-            install({ tracer.buildSpan(name).asChildOf(span).start() }) { childSpan, exitCase ->
-              when (exitCase) {
-                is ExitCase.Failure -> childSpan.log(exitCase.failure.toString()).finish()
-                else -> childSpan.finish()
-              }
-            }
-          datadogSpan(tracer, childSpan, uriPrefix)
+    override fun continueWithChild(name: String): Resource<OTSpan> = resource {
+      val childSpan =
+        install({ tracer.buildSpan(name).asChildOf(span).start() }) { childSpan, exitCase ->
+          when (exitCase) {
+            is ExitCase.Failure -> childSpan.log(exitCase.failure.toString()).finish()
+            else -> childSpan.finish()
+          }
         }
-        .putErrorFields()
+      installSpan { datadogSpan(tracer, childSpan, uriPrefix) }
+    }
 
     override fun traceId(): String? = span.context().toTraceId()
 

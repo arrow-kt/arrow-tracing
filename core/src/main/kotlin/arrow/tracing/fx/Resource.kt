@@ -1,5 +1,7 @@
 package arrow.tracing.fx
 
+import arrow.tracing.core.Span
+import arrow.tracing.core.toTraceValue
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.jvm.JvmInline
 import kotlinx.coroutines.CancellationException
@@ -299,6 +301,34 @@ public interface ResourceScope {
     val a = bind()
     return install({ a }, release)
   }
+
+  /**
+   * Install [S] into the [ResourceScope]. It's [release] function will be called with the
+   * appropriate [ExitCase] if this [ResourceScope] finishes. When the [ExitCase] is
+   * [ExitCase.Failure] or [ExitCase.Cancelled] it calls [Span.put] with the failure message and
+   * stacktrace, thereby adding the Errors to the Fields
+   */
+  @ResourceDSL
+  public suspend fun <S : Span?> installSpan(acquire: suspend AcquireStep.() -> S): S =
+    install(acquire) { span, exit ->
+      when (exit) {
+        is ExitCase.Failure ->
+          span?.put(
+            Pair(
+              exit.failure.message ?: "Failure has been raised: Exitcase.Failure",
+              exit.failure.cause?.stackTraceToString().orEmpty().toTraceValue()
+            )
+          )
+        is ExitCase.Cancelled ->
+          span?.put(
+            Pair(
+              exit.exception.message ?: "Span has been cancelled: Exitcase.Cancelled",
+              exit.exception.cause?.stackTraceToString().orEmpty().toTraceValue()
+            )
+          )
+        else -> Unit
+      }
+    }
 
   public suspend infix fun onRelease(release: suspend (ExitCase) -> Unit): Unit =
     install({}) { _, exitCase -> release(exitCase) }

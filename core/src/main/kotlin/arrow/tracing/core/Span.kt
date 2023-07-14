@@ -1,8 +1,6 @@
 package arrow.tracing.core
 
-import arrow.tracing.fx.ExitCase
 import arrow.tracing.fx.Resource
-import arrow.tracing.fx.resource
 
 /** A span that can be passed around and can create child spans. */
 public interface Span {
@@ -38,30 +36,4 @@ public interface Span {
    * example, so you can quickly find the associated trace.
    */
   public suspend fun traceUriPath(): String?
-}
-
-/**
- * Adds error message and stacktrace, if existent, to fields when an error or cancellation is
- * raised/triggered.
- */
-public fun <S : Span?> Resource<S>.putErrorFields(): Resource<S> = resource {
-  releaseCase { s, exit ->
-    when (exit) {
-      is ExitCase.Failure ->
-        s?.put(
-          Pair(
-            exit.failure.message ?: "Failure has been raised: Exitcase.Failure",
-            exit.failure.cause?.stackTraceToString().orEmpty().toTraceValue()
-          )
-        )
-      is ExitCase.Cancelled ->
-        s?.put(
-          Pair(
-            exit.exception.message ?: "Span has been cancelled: Exitcase.Cancelled",
-            exit.exception.cause?.stackTraceToString().orEmpty().toTraceValue()
-          )
-        )
-      else -> Unit
-    }
-  }
 }

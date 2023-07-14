@@ -10,7 +10,6 @@ import arrow.tracing.core.LongValue
 import arrow.tracing.core.ShortValue
 import arrow.tracing.core.StringValue
 import arrow.tracing.core.TraceValue
-import arrow.tracing.core.putErrorFields
 import arrow.tracing.fx.ExitCase
 import arrow.tracing.fx.Resource
 import arrow.tracing.fx.resource
@@ -47,32 +46,32 @@ internal fun jaegerSpan(tracer: Tracer, span: Span, prefix: URI?): OTSpan =
       return Kernel(map)
     }
 
-    override fun continueWithChild(name: String): Resource<OTSpan> =
-      resource {
-          val childSpan =
-            install({ tracer.buildSpan(name).asChildOf(span).start() }) { childSpan, _ ->
-              childSpan.finish()
-            }
-
-          install(
-            { jaegerSpan(tracer, childSpan, prefix) },
-            { span, exitCase ->
-              if (exitCase is ExitCase.Failure) {
-                span
-                  .setTag(Tags.ERROR, true)
-                  .log(
-                    mapOf(
-                      Fields.EVENT to Tags.ERROR,
-                      Fields.ERROR_OBJECT to exitCase.failure,
-                      Fields.MESSAGE to exitCase.failure.message,
-                      Fields.STACK to exitCase.failure.stackTraceToString()
-                    )
-                  )
-              }
-            }
-          )
+    override fun continueWithChild(name: String): Resource<OTSpan> = resource {
+      val childSpan =
+        install({ tracer.buildSpan(name).asChildOf(span).start() }) { childSpan, _ ->
+          childSpan.finish()
         }
-        .putErrorFields()
+
+      val jeagerSpan =
+        install(
+          { jaegerSpan(tracer, childSpan, prefix) },
+          { span, exitCase ->
+            if (exitCase is ExitCase.Failure) {
+              span
+                .setTag(Tags.ERROR, true)
+                .log(
+                  mapOf(
+                    Fields.EVENT to Tags.ERROR,
+                    Fields.ERROR_OBJECT to exitCase.failure,
+                    Fields.MESSAGE to exitCase.failure.message,
+                    Fields.STACK to exitCase.failure.stackTraceToString()
+                  )
+                )
+            }
+          }
+        )
+      installSpan { jeagerSpan }
+    }
 
     override fun traceId(): String? = span.context().toTraceId()
 
