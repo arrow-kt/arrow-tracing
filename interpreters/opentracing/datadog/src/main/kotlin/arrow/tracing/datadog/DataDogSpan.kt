@@ -2,11 +2,6 @@
 
 package arrow.tracing.datadog
 
-import arrow.core.Nullable
-import arrow.core.continuations.nullable
-import arrow.fx.coroutines.ExitCase
-import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.resource
 import arrow.tracing.core.BooleanValue
 import arrow.tracing.core.CharValue
 import arrow.tracing.core.DoubleValue
@@ -18,6 +13,9 @@ import arrow.tracing.core.ShortValue
 import arrow.tracing.core.StringValue
 import arrow.tracing.core.TraceValue
 import arrow.tracing.core.putErrorFields
+import arrow.tracing.fx.ExitCase
+import arrow.tracing.fx.Resource
+import arrow.tracing.fx.resource
 import arrow.tracing.opentracing.OTSpan
 import datadog.opentracing.DDTracer
 import io.opentracing.Tracer
@@ -68,8 +66,10 @@ internal fun datadogSpan(tracer: DDTracer, span: io.opentracing.Span, uriPrefix:
     override suspend fun spanId(): String? = span.context().toSpanId()
 
     override suspend fun traceUriPath(): String? =
-      Nullable.zip(uriPrefix, traceId(), spanId()) { uri, trace, span ->
-        uri.resolve("/apm/trace/$trace?spanID=$span").path
+      uriPrefix?.let { uri ->
+        traceId()?.let { trace ->
+          spanId()?.let { span -> uri.resolve("/apm/trace/${trace}?spanID=$span").path }
+        }
       }
   }
 
@@ -81,10 +81,10 @@ internal suspend fun fromKernel(
   tracer: Tracer,
   name: String,
   kernel: Kernel
-): io.opentracing.Span? = nullable {
-  val context = tracer.extract(Format.Builtin.HTTP_HEADERS, TextMapAdapter(kernel.headers)).bind()
-  tracer.buildSpan(name).asChildOf(context).start()
-}
+): io.opentracing.Span? =
+  tracer.extract(Format.Builtin.HTTP_HEADERS, TextMapAdapter(kernel.headers))?.let { context ->
+    tracer.buildSpan(name).asChildOf(context).start()
+  }
 
 internal suspend fun fromKernelOrRoot(
   tracer: Tracer,

@@ -1,8 +1,8 @@
 package arrow.tracing.datadog
 
-import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.closeable
-import arrow.fx.coroutines.resource
+import arrow.tracing.fx.Resource
+import arrow.tracing.fx.closeable
+import arrow.tracing.fx.resource
 import arrow.tracing.opentracing.OTEntrypoint
 import arrow.tracing.opentracing.globalTracerOrNull
 import datadog.opentracing.DDTracer

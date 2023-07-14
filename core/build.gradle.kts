@@ -11,7 +11,7 @@ kotlin {
 
 dependencies {
   implementation(libs.kotlin.stdlib)
-  api(libs.arrow.fx)
+  api(libs.coroutines.core)
   testImplementation(libs.bundles.kotest.jvm)
 }
 

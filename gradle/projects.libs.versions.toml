@@ -1,6 +1,5 @@
 [versions]
 kotlin = "1.8.10"
-arrow = "1.1.5"
 arrowGradleConfig = "0.11.0"
 coroutines = "1.6.4"
 kotest = "5.5.5"
@@ -21,9 +20,6 @@ kover = "0.6.1"
 [libraries]
 kotlin-stdlibCommon = { module = "org.jetbrains.kotlin:kotlin-stdlib-common", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-
-arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
-arrow-fx = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 

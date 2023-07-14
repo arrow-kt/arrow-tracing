@@ -1,6 +1,6 @@
 package arrow.tracing.opentracing
 
-import arrow.fx.coroutines.Resource
+import arrow.tracing.fx.Resource
 
 // TODO: combinators for [io.opentracing.Tracer]
 

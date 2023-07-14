@@ -1,9 +1,9 @@
 package arrow.tracing.jaeger
 
-import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.continuations.resource
 import arrow.tracing.core.Kernel
 import arrow.tracing.core.putErrorFields
+import arrow.tracing.fx.Resource
+import arrow.tracing.fx.resource
 import arrow.tracing.opentracing.OTEntrypoint
 import arrow.tracing.opentracing.OTSpan
 import io.opentracing.Tracer

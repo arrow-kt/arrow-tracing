@@ -1,11 +1,5 @@
 package arrow.tracing.jaeger
 
-import arrow.core.Nullable
-import arrow.core.continuations.nullable
-import arrow.fx.coroutines.ExitCase
-import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.releaseCase
-import arrow.fx.coroutines.resource
 import arrow.tracing.core.BooleanValue
 import arrow.tracing.core.CharValue
 import arrow.tracing.core.DoubleValue
@@ -17,6 +11,9 @@ import arrow.tracing.core.ShortValue
 import arrow.tracing.core.StringValue
 import arrow.tracing.core.TraceValue
 import arrow.tracing.core.putErrorFields
+import arrow.tracing.fx.ExitCase
+import arrow.tracing.fx.Resource
+import arrow.tracing.fx.resource
 import arrow.tracing.opentracing.OTSpan
 import io.jaegertracing.internal.exceptions.UnsupportedFormatException
 import io.opentracing.Span
@@ -56,21 +53,24 @@ internal fun jaegerSpan(tracer: Tracer, span: Span, prefix: URI?): OTSpan =
             install({ tracer.buildSpan(name).asChildOf(span).start() }) { childSpan, _ ->
               childSpan.finish()
             }
-          jaegerSpan(tracer, childSpan, prefix)
-        }
-        .releaseCase { span, exitCase ->
-          if (exitCase is ExitCase.Failure) {
-            span
-              .setTag(Tags.ERROR, true)
-              .log(
-                mapOf(
-                  Fields.EVENT to Tags.ERROR,
-                  Fields.ERROR_OBJECT to exitCase.failure,
-                  Fields.MESSAGE to exitCase.failure.message,
-                  Fields.STACK to exitCase.failure.stackTraceToString()
-                )
-              )
-          }
+
+          install(
+            { jaegerSpan(tracer, childSpan, prefix) },
+            { span, exitCase ->
+              if (exitCase is ExitCase.Failure) {
+                span
+                  .setTag(Tags.ERROR, true)
+                  .log(
+                    mapOf(
+                      Fields.EVENT to Tags.ERROR,
+                      Fields.ERROR_OBJECT to exitCase.failure,
+                      Fields.MESSAGE to exitCase.failure.message,
+                      Fields.STACK to exitCase.failure.stackTraceToString()
+                    )
+                  )
+              }
+            }
+          )
         }
         .putErrorFields()
 
@@ -79,7 +79,7 @@ internal fun jaegerSpan(tracer: Tracer, span: Span, prefix: URI?): OTSpan =
     override suspend fun spanId(): String? = span.context().toSpanId()
 
     override suspend fun traceUriPath(): String? =
-      Nullable.zip(prefix, traceId()) { uri, id -> uri.resolve("/trace/$id").path }
+      prefix?.let { uri -> traceId()?.let { id -> uri.resolve("/trace/$id").path } }
   }
 
 internal suspend fun root(tracer: Tracer, name: String): io.opentracing.Span =
@@ -92,10 +92,10 @@ internal suspend fun fromKernel(
   tracer: Tracer,
   name: String,
   kernel: Kernel
-): io.opentracing.Span? = nullable {
-  val context = tracer.extract(Format.Builtin.HTTP_HEADERS, TextMapAdapter(kernel.headers)).bind()
-  tracer.buildSpan(name).asChildOf(context).start()
-}
+): io.opentracing.Span? =
+  tracer.extract(Format.Builtin.HTTP_HEADERS, TextMapAdapter(kernel.headers))?.let { context ->
+    tracer.buildSpan(name).asChildOf(context).start()
+  }
 
 internal suspend fun fromKernelOrRoot(
   tracer: Tracer,

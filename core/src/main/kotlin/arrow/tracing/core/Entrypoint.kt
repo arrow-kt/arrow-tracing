@@ -1,6 +1,6 @@
 package arrow.tracing.core
 
-import arrow.fx.coroutines.Resource
+import arrow.tracing.fx.Resource
 
 /**
  * [Entrypoint] creates root spans or continues traces with a child span that were started on

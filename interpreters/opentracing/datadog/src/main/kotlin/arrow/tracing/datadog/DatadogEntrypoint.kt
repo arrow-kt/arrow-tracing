@@ -1,9 +1,9 @@
 package arrow.tracing.datadog
 
-import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.resource
 import arrow.tracing.core.Kernel
 import arrow.tracing.core.putErrorFields
+import arrow.tracing.fx.Resource
+import arrow.tracing.fx.resource
 import arrow.tracing.opentracing.OTEntrypoint
 import arrow.tracing.opentracing.OTSpan
 import datadog.opentracing.DDTracer
