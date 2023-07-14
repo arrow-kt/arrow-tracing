@@ -1,7 +1,7 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 plugins {
-  id("com.gradle.enterprise") version "3.11.1"
+  id("com.gradle.enterprise") version "3.13.4"
 }
 
 dependencyResolutionManagement {
@@ -33,7 +33,6 @@ include("core")
 include(
   "interpreters",
   "interpreters:opentracing",
-  "interpreters:opentelemetry",
   "interpreters:opentracing:jaeger",
   "interpreters:opentracing:datadog"
 )

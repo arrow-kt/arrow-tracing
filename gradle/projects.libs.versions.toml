@@ -13,9 +13,9 @@ lightstepJre = "0.30.5"
 jaeger = "1.8.1"
 libhoney = "1.5.3"
 datadog = "0.109.1"
-kotlinBinaryCompatibilityValidator = "0.12.1"
+kotlinBinaryCompatibilityValidator = "0.13.2"
 detekt = "1.22.0"
-kover = "0.6.1"
+kover = "0.7.2"
 
 [libraries]
 kotlin-stdlibCommon = { module = "org.jetbrains.kotlin:kotlin-stdlib-common", version.ref = "kotlin" }
