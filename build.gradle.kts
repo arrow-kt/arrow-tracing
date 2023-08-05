@@ -5,7 +5,7 @@ import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-  alias(libs.plugins.kotlin.multiplatform) apply false
+  alias(libs.plugins.kotlin.jvm) apply false
   alias(libs.plugins.kotest.multiplatform)
   alias(libs.plugins.arrowGradleConfig.formatter)
   alias(libs.plugins.arrowGradleConfig.nexus)
@@ -38,8 +38,6 @@ allprojects {
 
 tasks.withType<KotlinCompile>().configureEach {
   kotlinOptions.jvmTarget = "1.8"
-  sourceCompatibility = "1.8"
-  targetCompatibility = "1.8"
 }
 
 tasks.withType<Detekt>().configureEach {

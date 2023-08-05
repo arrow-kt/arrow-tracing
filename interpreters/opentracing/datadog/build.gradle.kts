@@ -7,9 +7,10 @@ plugins {
 
 dependencies {
   implementation(libs.kotlin.stdlib)
-  api(projects.core)
-  api(libs.opentracing.api)
-  api(libs.opentracing.util)
+
+  api(projects.interpreters.opentracing)
+  api(libs.datadog.api)
+  api(libs.datadog.ot)
 
   testImplementation(libs.bundles.kotest.jvm)
 }

@@ -1,7 +1,0 @@
-public final class arrow/tracing/jaeger/InterpreterKt {
-	public static final fun entrypoint (Ljava/lang/String;Ljava/net/URI;Lkotlin/jvm/functions/Function1;)Larrow/fx/coroutines/Resource;
-	public static synthetic fun entrypoint$default (Ljava/lang/String;Ljava/net/URI;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Larrow/fx/coroutines/Resource;
-	public static final fun globalEntrypoint (Ljava/net/URI;)Larrow/fx/coroutines/Resource;
-	public static synthetic fun globalEntrypoint$default (Ljava/net/URI;ILjava/lang/Object;)Larrow/fx/coroutines/Resource;
-}
-
