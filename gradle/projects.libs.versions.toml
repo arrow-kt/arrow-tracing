@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.8.10"
+kotlin = "1.9.20"
 arrowGradleConfig = "0.11.0"
 coroutines = "1.6.4"
 kotest = "5.5.5"
@@ -16,37 +16,92 @@ datadog = "0.109.1"
 kotlinBinaryCompatibilityValidator = "0.13.2"
 detekt = "1.22.0"
 kover = "0.7.2"
+arrow = "1.2.0"
+postgresql="42.7.0"
+ktor = "2.3.4"
+suspendapp="0.4.0"
+cohort="2.3.0"
+logback = "1.4.12"
+sqldelight="2.0.1"
+testcontainers="1.19.3"
+hikari="5.1.0"
+kotest-testcontainers="2.0.2"
+power-assert = "0.13.0"
 
 [libraries]
-kotlin-stdlibCommon = { module = "org.jetbrains.kotlin:kotlin-stdlib-common", version.ref = "kotlin" }
+## Kotlin & KotlinX
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
+# Ktor
+ktor-core = {module = "io.ktor:ktor-server-host-common", version.ref = "ktor"}
+ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
+ktor-server-defaultheaders = { module = "io.ktor:ktor-server-default-headers", version.ref = "ktor" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+ktor-server-tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
+ktor-server-resources = { module = "io.ktor:ktor-server-resources", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-html = { module = "io.ktor:ktor-server-html-builder", version.ref = "ktor" }
+
+# DBs
+testcontainers-postgresql = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
+hikari = { module = "com.zaxxer:HikariCP", version.ref="hikari" }
+sqldelight-jdbc = { module = "app.cash.sqldelight:jdbc-driver", version.ref="sqldelight" }
+sqldelight-postgresql = { module = "app.cash.sqldelight:postgresql-dialect", version.ref="sqldelight" }
+cohort-core = { module="com.sksamuel.cohort:cohort-core", version.ref="cohort" }
+cohort-hikari = { module="com.sksamuel.cohort:cohort-hikari", version.ref="cohort" }
+postgresql = { module="org.postgresql:postgresql", version.ref="postgresql" }
+
+#Logback & Cohort
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+## Arrow
+arrow-fx = {module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow"}
+suspendapp = { module = "io.arrow-kt:suspendapp", version.ref = "suspendapp" }
+suspendapp-ktor = { module = "io.arrow-kt:suspendapp-ktor", version.ref = "suspendapp" }
+
+## Kotest
 kotest-assertionsCore = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-frameworkEngine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 kotest-runnerJUnit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
-kotest-arrowCore = { module = "io.kotest.extensions:kotest-assertions-arrow", version.ref = "kotestArrow" }
+kotest-arrow = { module = "io.kotest.extensions:kotest-assertions-arrow", version.ref = "kotestArrow" }
+kotest-arrow-fx = { module = "io.kotest.extensions:kotest-assertions-arrow-fx-coroutines", version.ref = "kotestArrow" }
+kotest-testcontainers = { module = "io.kotest.extensions:kotest-extensions-testcontainers", version.ref = "kotest-testcontainers" }
 kotest-property-arrowCore = { module = "io.kotest.extensions:kotest-property-arrow", version.ref = "kotestArrow" }
 
+# Opentracing
 opentracing-api = { module = "io.opentracing:opentracing-api", version.ref = "opentracing" }
 opentracing-util = { module = "io.opentracing:opentracing-util", version.ref = "opentracing" }
 
+# Opencensus
 opencensus-exporterTraceOcagent = { module = "io.opencensus:opencensus-exporter-trace-ocagent", version.ref = "opencensus" }
 
+#Newrelic
 newrelic-telemetry = { module = "com.newrelic.telemetry:telemetry", version.ref = "newrelic-telemetry" }
 newrelic-telemetry-core = { module = "com.newrelic.telemetry:telemetry-core", version.ref = "newrelic" }
 newrelic-telemetry-okhttp = { module = "com.newrelic.telemetry:telemetry-http-okhttp", version.ref = "newrelic" }
 
+# LightStep
 lightstep-okhtpp = { module = "com.lightstep.tracer:tracer-okhttp", version.ref = "lightstep" }
 lightstep-grpc = { module = "com.lightstep.tracer:tracer-grpc", version.ref = "lightstep" }
 lightstep-jre = { module = "com.lightstep.tracer:lightstep-tracer-jre", version.ref = "lightstepJre" }
 
+#Jaeger
 jaeger-client = { module = "io.jaegertracing:jaeger-client", version.ref = "jaeger" }
 
+# Libhoney
 libhoney-java = { module = "io.honeycomb.libhoney:libhoney-java", version.ref = "libhoney" }
 
+#datadog
 datadog-api = { module = "com.datadoghq:dd-trace-api", version.ref = "datadog" }
 datadog-ot = { module = "com.datadoghq:dd-trace-ot", version.ref = "datadog" }
 
@@ -62,7 +117,39 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+power-assert = { id = "com.bnorm.power.kotlin-power-assert",  version.ref = "power-assert" }
 
 [bundles]
-kotest-jvm = ["kotest-assertionsCore", "kotest-property", "kotest-runnerJUnit5", "kotest-frameworkEngine", "kotest-arrowCore", "kotest-property-arrowCore"]
-kotest-mpp = ["kotest-assertionsCore", "kotest-property", "kotest-frameworkEngine", "kotest-arrowCore", "kotest-property-arrowCore"]
+kotest-jvm = ["kotest-assertionsCore", "kotest-property", "kotest-runnerJUnit5", "kotest-frameworkEngine", "kotest-arrow", "kotest-arrow-fx", "kotest-property-arrowCore"]
+suspendapp = ["suspendapp", "suspendapp-ktor"]
+ktor-server = [
+    "ktor-server-core",
+    "ktor-server-cors",
+    "ktor-server-content-negotiation",
+    "ktor-server-defaultheaders",
+    "ktor-server-netty",
+    "ktor-serialization",
+    "ktor-server-resources"
+]
+ktor-client = [
+    "ktor-client-content-negotiation",
+    "ktor-client-serialization",
+    "ktor-client-resources"
+]
+kotest-example = [
+    "kotest-assertionsCore",
+    "kotest-frameworkEngine",
+    "kotest-property",
+    "kotest-property-arrowCore",
+    "kotest-runnerJUnit5",
+    "kotest-arrow",
+    "kotest-arrow-fx",
+    "kotest-testcontainers"
+]
+cohort = [
+    "cohort-core",
+    "cohort-hikari"
+]

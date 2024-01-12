@@ -1,3 +1,5 @@
+@file:Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
+
 package arrow.tracing.fx
 
 import kotlinx.coroutines.CancellationException

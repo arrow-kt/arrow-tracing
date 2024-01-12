@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -13,6 +14,7 @@ plugins {
   alias(libs.plugins.binaryCompatibilityValidator)
   alias(libs.plugins.detekt)
   alias(libs.plugins.kover)
+  alias(libs.plugins.power.assert)
 }
 
 allprojects {
@@ -22,7 +24,10 @@ allprojects {
     google()
     mavenCentral()
   }
-
+  tasks.withType<JavaCompile> {
+      sourceCompatibility = "${JavaVersion.VERSION_17}"
+      targetCompatibility = "${JavaVersion.VERSION_17}"
+  }
   tasks.withType<Test> {
     useJUnitPlatform()
     maxParallelForks = Runtime.getRuntime().availableProcessors()
@@ -37,11 +42,12 @@ allprojects {
 }
 
 tasks.withType<KotlinCompile>().configureEach {
-  kotlinOptions.jvmTarget = "1.8"
+  kotlinOptions.jvmTarget = "${JavaVersion.VERSION_17}"
+  explicitApiMode.set(ExplicitApiMode.Disabled)
 }
 
 tasks.withType<Detekt>().configureEach {
-  jvmTarget = "1.8"
+  jvmTarget = "${JavaVersion.VERSION_17}"
   reports {
     html.required.set(true)
     sarif.required.set(true)
@@ -51,7 +57,7 @@ tasks.withType<Detekt>().configureEach {
 }
 
 tasks.withType<DetektCreateBaselineTask>().configureEach {
-  jvmTarget = "1.8"
+  jvmTarget = "${JavaVersion.VERSION_17}"
 }
 
 // static analysis tool

@@ -6,7 +6,7 @@ plugins {
 }
 
 kotlin {
-  explicitApi()
+  // explicitApi()
 }
 
 dependencies {
